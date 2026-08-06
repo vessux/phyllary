@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable, Sequence
 
 ADR15 = "ADR 0015 — docs/adr/0015-phyllary-opaque-workflow-verb-facade.md"
-ADR16 = "ADR 0016 — umbel/docs/adr/0016-delivery-gate-acceptance-proof-and-judgment-loops.md"
+ADR16 = "ADR 0016 — Umbel discovery/delivery acceptance contract"
 ADR17 = "ADR 0017 — docs/adr/0017-tier-retired-backlog-location-and-merge-gate-axes.md"
 
 TOP_LEVEL_VERBS = ("capture", "sync", "doctor", "glean")
