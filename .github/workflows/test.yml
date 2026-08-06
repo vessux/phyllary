@@ -17,6 +17,12 @@ jobs:
         with:
           python-version: '3.13'
       - run: sudo apt-get update && sudo apt-get install -y bats shellcheck
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - run: |
+          go install github.com/steveyegge/beads/cmd/bd@ce242a879
+          sudo install -m 0755 "$(go env GOPATH)/bin/bd" /usr/local/bin/bd
       - run: python -m pip install .
       - run: bats tests/bats
       - run: python -m unittest discover -s tests/python
