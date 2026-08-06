@@ -105,16 +105,16 @@ EOF
 @test "launcher does not write Python bytecode into its checkout" {
 	real_python=$(python3 -c 'import sys; print(sys.executable)')
 	fresh="$BATS_TEST_TMPDIR/fresh-checkout"
-	mkdir -p "$fresh/bin" "$fresh/phyllary/src"
+	mkdir -p "$fresh/bin" "$fresh/src"
 	cp "$REPO_ROOT/bin/phyllary" "$fresh/bin/phyllary"
-	cp -R "$REPO_ROOT/phyllary/src/phyllary" "$fresh/phyllary/src/"
-	rm -rf "$fresh/phyllary/src/phyllary/__pycache__"
-	find "$fresh/phyllary/src/phyllary" -type f \( -name '*.py[co]' -o -name '*.pyd' \) -delete
+	cp -R "$REPO_ROOT/src/phyllary" "$fresh/src/"
+	rm -rf "$fresh/src/phyllary/__pycache__"
+	find "$fresh/src/phyllary" -type f \( -name '*.py[co]' -o -name '*.pyd' \) -delete
 
 	run env -i PHYLLARY_PYTHON="$real_python" PATH="/usr/bin:/bin" "$fresh/bin/phyllary" --version
 	[ "$status" -eq 0 ]
 	[ "$output" = "phyllary 0.1.0" ]
-	assert_no_python_bytecode "$fresh/phyllary/src/phyllary"
+	assert_no_python_bytecode "$fresh/src/phyllary"
 }
 
 @test "launcher resolves a Stow-style symlink to the checkout" {
@@ -283,21 +283,21 @@ EOF
 	[ "${lines[1]}" = '  usage: phyllary capture "<title>" [--stdin|--type <type>|--impediment|--parent <id>|--blocked-by <id>...]' ]
 	[ "${lines[2]}" = '  runs: bd create "<title>" [--stdin] [--type ...] [--parent ...] [--deps ...]           (backlog: bd|gh)' ]
 	[ "${lines[3]}" = '        (GitHub-backed repos use GitHub only after inbox ready promotion)' ]
-	[ "${lines[4]}" = '  see:  ADR 0015 — phyllary/docs/adr/0015-phyllary-opaque-workflow-verb-facade.md' ]
+	[ "${lines[4]}" = '  see:  ADR 0015 — docs/adr/0015-phyllary-opaque-workflow-verb-facade.md' ]
 }
 
 @test "--explain backlog submit describes the Project-gate boundary (ADR 0019)" {
 	run "$PHYLLARY" --explain backlog submit
 	[ "$status" -eq 0 ]
 	[[ "$output" == *"trusted default branch"* ]]
-	[[ "$output" == *"ADR 0019 — phyllary/docs/adr/0019-project-gate-adapter-contract.md"* ]]
+	[[ "$output" == *"ADR 0019 — docs/adr/0019-project-gate-adapter-contract.md"* ]]
 }
 
 @test "--explain doctor points at the marker manifest (ADR 0017)" {
 	run "$PHYLLARY" --explain doctor
 	[ "$status" -eq 0 ]
 	[[ "$output" == *"reads .phyllary"* ]]
-	[[ "$output" == *"ADR 0017 — phyllary/docs/adr/0017-tier-retired-backlog-location-and-merge-gate-axes.md"* ]]
+	[[ "$output" == *"ADR 0017 — docs/adr/0017-tier-retired-backlog-location-and-merge-gate-axes.md"* ]]
 }
 
 @test "trailing --explain (phyllary <noun> <verb> --explain) equals the leading form" {

@@ -15,11 +15,11 @@ while [ -L "$source_path" ]; do
 	source_dir=${source_path%/*}
 	[ "$source_dir" != "$source_path" ] || source_dir=.
 	if ! source_dir=$(cd -P -- "$source_dir" 2>/dev/null && pwd); then
-		phyllary_error "cannot resolve launcher directory — cd into the dotfiles checkout, then rerun 'phyllary doctor'"
+		phyllary_error "cannot resolve launcher directory — cd into the Phyllary checkout, then rerun 'phyllary doctor'"
 		exit 4
 	fi
 	if ! target=$(readlink "$source_path" 2>/dev/null); then
-		phyllary_error "cannot resolve launcher symlink — cd into the dotfiles checkout, then rerun 'phyllary doctor'"
+		phyllary_error "cannot resolve launcher symlink — cd into the Phyllary checkout, then rerun 'phyllary doctor'"
 		exit 4
 	fi
 	case "$target" in
@@ -31,15 +31,15 @@ done
 bin_dir=${source_path%/*}
 [ "$bin_dir" != "$source_path" ] || bin_dir=.
 if ! bin_dir=$(cd -P -- "$bin_dir" 2>/dev/null && pwd); then
-	phyllary_error "cannot resolve launcher directory — cd into the dotfiles checkout, then rerun 'phyllary doctor'"
+	phyllary_error "cannot resolve launcher directory — cd into the Phyllary checkout, then rerun 'phyllary doctor'"
 	exit 4
 fi
 if ! repo_root=$(cd -P -- "$bin_dir/.." 2>/dev/null && pwd); then
-	phyllary_error "cannot resolve dotfiles checkout — cd into the dotfiles checkout, then rerun 'phyllary doctor'"
+	phyllary_error "cannot resolve Phyllary checkout — cd into the Phyllary checkout, then rerun 'phyllary doctor'"
 	exit 4
 fi
 
-python_src=$repo_root/phyllary/src
+python_src=$repo_root/src
 
 find_python() {
 	local candidate
@@ -67,5 +67,4 @@ fi
 
 PYTHONDONTWRITEBYTECODE=1 \
 PYTHONPATH="$python_src${PYTHONPATH:+:$PYTHONPATH}" \
-PHYLLARY_REPO_ROOT="$repo_root" \
 exec "$python_bin" -m phyllary "$@"
