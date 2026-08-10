@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "phyllary",
+  "project_id": "bb911cfb-1093-4ba5-9d06-35a5d0c12bf8"
+}
