@@ -10,3 +10,15 @@ dist/
 *.db
 .beads-credential-key
 .beads/proxieddb/
+
+# sssf factory + tool caches
+adws/adw_data/
+.env
+*.pyc
+.pi-subagents/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.hypothesis/
+.beads/interactions.jsonl
